@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Automatic On/Off TV</title>
+  <style>
+    body {
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    #tv {
+      width: 600px;
+      height: 400px;
+      background-color: #000;
+      border: 15px solid #444;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      transition: background-color 1s, color 1s;
+    }
+    .on {
+      background-color: #00ff00;
+      color: black;
+    }
+    .off {
+      background-color: #000;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div id="tv" class="off">TV is OFF</div>
+
+<script>
+  const tv = document.getElementById('tv');
+
+  // Set time for auto ON and OFF (24-hour format)
+  const onHour = 10;   // 10 AM
+  const onMinute = 0;
+
+  const offHour = 10;  // 10 AM
+  const offMinute = 1; // TV will turn off after 1 minute
+
+  function checkTimeAndToggleTV() {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+
+    if (currentHour === onHour && currentMinute === onMinute) {
+      turnOnTV();
+    } else if (currentHour === offHour && currentMinute === offMinute) {
+      turnOffTV();
+    }
+  }
+
+  function turnOnTV() {
+    tv.classList.remove('off');
+    tv.classList.add('on');
+    tv.textContent = 'TV is ON';
+  }
+
+  function turnOffTV() {
+    tv.classList.remove('on');
+    tv.classList.add('off');
+    tv.textContent = 'TV is OFF';
+  }
+
+  // Check every 30 seconds
+  setInterval(checkTimeAndToggleTV, 30000);
+</script>
+
+</body>
+</html>
